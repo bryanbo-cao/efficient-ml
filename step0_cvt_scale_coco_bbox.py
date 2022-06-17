@@ -56,6 +56,15 @@ class Config:
             self.label_folder_dict[data_type] = self.label_root_path + '/{}2017'.format(data_type)
 
         self.cat_label_path = self.dataset_root_path + '/coco-labels-2014_2017.txt'
+        if not os.path.exists(self.cat_label_path):
+            cmd = 'git clone https://github.com/amikelive/coco-labels'
+            os.system(cmd)
+            cmd = 'pwd'
+            os.system(cmd)
+            cmd = 'scp coco-labels/coco-labels-2014_2017.txt {}'.format(self.dataset_root_path)
+            os.system(cmd)
+            cmd = 'rm -rf coco-labels'
+            os.system(cmd)
         self.cat_id_to_name_dict = defaultdict()
         with open(self.cat_label_path) as f:
             lines = f.readlines()
