@@ -57,55 +57,25 @@ class Config:
                 self.img_folder_dict[self.scale_str_ls[i]][data_type] = self.scaled_img_root_path + '/{}2017'.format(data_type)
                 if not os.path.exists(self.img_folder_dict[self.scale_str_ls[i]][data_type]): os.makedirs(self.img_folder_dict[self.scale_str_ls[i]][data_type])
 
-        self.label_folder_dict = defaultdict()
-        for data_type in self.data_types:
-            self.label_folder_dict[data_type] = self.label_root_path + '/{}2017'.format(data_type)
-
-        self.img_path_to_save = './vis_save'
-        if not os.path.exists(self.img_path_to_save):
-            os.makedirs(self.img_path_to_save)
-        self.label_root_path = self.dataset_root_path + '/labels'
-        self.label_folder_dict = defaultdict()
-        for data_type in self.data_types:
-            self.label_folder_dict[data_type] = self.label_root_path + '/{}2017'.format(data_type)
-
-        self.cat_label_path = self.dataset_root_path + '/coco-labels-2014_2017.txt'
-        self.cat_id_to_name_dict = defaultdict()
-
-        self.cat_id_label_path = self.dataset_root_path + '/coco-id-labels-2014_2017.txt'
-        self.cat_id_label_f = open(self.cat_id_label_path, 'r')
-        self.cat_id_label_lines = self.cat_id_label_f.readlines()
-
-        self.cls_ls_path = self.dataset_root_path + '/cls_ls.txt'
-        self.cls_ls = []
-        self.cls_ls_f = open(self.cls_ls_path, 'r')
-        self.id_DST_to_id_ORI_labels_dict_path = self.dataset_root_path + '/id_DST_to_id_ORI_labels.json'
-        self.id_DST_to_id_ORI_labels_dict = defaultdict()
-        self.id_ORI_to_id_DST_labels_dict_path = self.dataset_root_path + '/id_ORI_to_id_DST_labels.json'
-        self.id_ORI_to_id_DST_labels_dict = defaultdict()
-
 
 if __name__ == '__main__':
     C = Config()
 
-    lines = C.cls_ls_f.readlines()
-    n_cls_80_ls = lines[-1][1:-2].replace(',', '').split(' ')
-    # n_cls_80_ls = list(n_cls_80_ls)
-    print('n_cls_80_ls: ', n_cls_80_ls)
-    print('type(n_cls_80_ls): ', type(n_cls_80_ls))
-    print('len(n_cls_80_ls): ', len(n_cls_80_ls))
-    for i, n_cls in enumerate(n_cls_80_ls):
-        label = C.cat_id_label_lines[i].split(',')[-1][:-1]
-        print('label: ', label)
-        C.id_ORI_to_id_DST_labels_dict[str(n_cls)] = [str(i), label]
-        C.id_DST_to_id_ORI_labels_dict[str(i)] = [str(n_cls), label]
+    for scaled_str, img_folder in C.img_folder_dict.items():
+        print(scaled_str, img_folder)
+        for data_type in C.data_types:
+            img_path = img_folder[data_type]
+            dataset_root_path = img_path[:img_path.index('/images')]
+            print('\n\n dataset_root_path: ', dataset_root_path)
 
-    print('C.id_ORI_to_id_DST_labels_dict: ', C.id_ORI_to_id_DST_labels_dict)
-    with open(C.id_ORI_to_id_DST_labels_dict_path, 'w') as f:
-        json.dump(C.id_ORI_to_id_DST_labels_dict, f, cls=NpEncoder)
-    print(C.id_ORI_to_id_DST_labels_dict_path, 'written!')
+            copy_cmd = 'scp -r {}/labels_* {}'.format(C.dataset_root_path, dataset_root_path)
+            print(copy_cmd)
+            os.system(copy_cmd)
 
-    print('C.id_DST_to_id_ORI_labels_dict: ', C.id_DST_to_id_ORI_labels_dict)
-    with open(C.id_DST_to_id_ORI_labels_dict_path, 'w') as f:
-        json.dump(C.id_DST_to_id_ORI_labels_dict, f, cls=NpEncoder)
-    print(C.id_DST_to_id_ORI_labels_dict_path, 'written!')
+            copy_cmd = 'scp -r {}/*.txt {}'.format(C.dataset_root_path, dataset_root_path)
+            print(copy_cmd)
+            os.system(copy_cmd)
+
+            copy_cmd = 'scp -r {}/*.json {}'.format(C.dataset_root_path, dataset_root_path)
+            print(copy_cmd)
+            os.system(copy_cmd)

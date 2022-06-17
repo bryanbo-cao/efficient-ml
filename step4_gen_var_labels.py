@@ -47,7 +47,10 @@ class Config:
         self.scale_ls = [1/2, 1/4, 1/8, 1/16]
         self.scale_str_ls = ['1o2', '1o4', '1o8', '1o16']
         for i, scale in enumerate(self.scale_ls):
-            self.scaled_img_root_path = self.img_root_path + '_' + self.scale_str_ls[i]
+            self.scaled_dataset_root_path = self.dataset_root_path + '_' + self.scale_str_ls[i]
+            if not os.path.exists(self.scaled_dataset_root_path): os.makedirs(self.scaled_dataset_root_path)
+            self.scaled_img_root_path = self.scaled_dataset_root_path + '/images'
+            if not os.path.exists(self.scaled_img_root_path): os.makedirs(self.scaled_img_root_path)
 
             self.img_folder_dict[self.scale_str_ls[i]] = defaultdict()
             for data_type in self.data_types:
@@ -101,13 +104,30 @@ if __name__ == '__main__':
                 if not os.path.exists(n_cls_path): os.makedirs(n_cls_path)
                 for data_type in C.data_types:
                     label_folder_ORI = C.label_folder_dict[data_type]
+
+                    # labels_*
                     label_folder_DST = n_cls_path + '/{}2017'.format(data_type)
                     print('\n\n label_folder_DST: ', label_folder_DST)
                     if not os.path.exists(label_folder_DST): os.makedirs(label_folder_DST)
+
+                    # *.txt
+                    label_txt_DST = C.dataset_root_path + '/{}2017_n_cls_{}.txt'.format(data_type, n_cls)
+                    print('\n\n label_txt_DST: ', label_txt_DST)
+                    label_txt_DST_f = open(label_txt_DST, 'w')
+
+                    # Make a copy of the original one
+                    label_txt = C.dataset_root_path + '/{}2017.txt'.format(data_type)
+                    label_txt_ORI = C.dataset_root_path + '/{}2017_ORI.txt'.format(data_type)
+                    print('\n\n label_txt: ', label_txt, ', label_txt_ORI: ', label_txt_ORI)
+                    copy_cmd = 'scp -r {} {}'.format(label_txt, label_txt_ORI)
+                    print(copy_cmd)
+                    os.system(copy_cmd)
+
                     for label_path_ORI in glob.glob(label_folder_ORI + '/*.txt'):
                         img_id = label_path_ORI[label_path_ORI.rindex('/') + 1:label_path_ORI.index('.txt')]
                         # print('\n\n img_id: ', img_id)
 
+                        # labels_*
                         label_path_ORI_f = open(label_path_ORI, 'r')
                         label_path_ORI_lines = label_path_ORI_f.readlines()
                         for label_path_ORI_line_i, label_path_ORI_line in enumerate(label_path_ORI_lines):
@@ -119,9 +139,14 @@ if __name__ == '__main__':
                                 label_path_DST = label_folder_DST + '/' + img_id + '.txt'
                                 # print('\n\n label_path_DST: ', label_path_DST)
                                 label_path_DST_f = open(label_path_DST, 'w')
-                                
+
                                 cat_id_DST = C.id_ORI_to_id_DST_labels_dict[cat_id_ORI][0]
                                 # print('cat_id_DST: ', cat_id_DST)
                                 label_path_DST_line = label_path_ORI_line.replace(cat_id_ORI, cat_id_DST)
                                 # print('label_path_DST_line: ', label_path_DST_line)
                                 label_path_DST_f.write(label_path_DST_line)
+
+                        # *.txt
+                        str_to_write = './images/{}2017/{}.jpg\n'.format(data_type, img_id)
+                        # print('str_to_write: ', str_to_write)
+                        label_txt_DST_f.write(str_to_write)

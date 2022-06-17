@@ -33,7 +33,10 @@ class Config:
         self.scale_ls = [1/2, 1/4, 1/8, 1/16]
         self.scale_str_ls = ['1o2', '1o4', '1o8', '1o16']
         for i, scale in enumerate(self.scale_ls):
-            self.scaled_img_root_path = self.img_root_path + '_' + self.scale_str_ls[i]
+            self.scaled_dataset_root_path = self.dataset_root_path + '_' + self.scale_str_ls[i]
+            if not os.path.exists(self.scaled_dataset_root_path): os.makedirs(self.scaled_dataset_root_path)
+            self.scaled_img_root_path = self.scaled_dataset_root_path + '/images'
+            if not os.path.exists(self.scaled_img_root_path): os.makedirs(self.scaled_img_root_path)
 
             self.img_folder_dict[self.scale_str_ls[i]] = defaultdict()
             for data_type in self.data_types:
