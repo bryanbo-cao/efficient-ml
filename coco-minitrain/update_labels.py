@@ -1,3 +1,8 @@
+'''
+Usage:
+python3 update_labels.py -mtp /home/brcao/Repos/datasets/coco_minitrain_8k
+'''
+
 import os
 import cv2
 import glob
@@ -5,19 +10,6 @@ import argparse
 from collections import defaultdict
 import copy
 import json
-
-# TypeError: Object of <some_code> is not JSON serializable
-# Ref: https://stackoverflow.com/questions/50916422/python-typeerror-object-of-type-int64-is-not-json-serializable
-class NpEncoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, np.integer):
-            return int(obj)
-        elif isinstance(obj, np.floating):
-            return float(obj)
-        elif isinstance(obj, np.ndarray):
-            return obj.tolist()
-        else:
-            return super(NpEncoder, self).default(obj)
 
 # -----------------------------------
 #  Configurations for One Experiment
@@ -28,13 +20,11 @@ class Config:
         #  Paramaters of experiment
         # --------------------------
         parser = argparse.ArgumentParser()
-        parser.add_argument('-b', '--draw_bbox', type=bool, default=False)
-        parser.add_argument('-v', '--visualize_bbox', type=bool, default=False)
-        # parser.add_argument('-s', '--scale', type=int, default=2)
+        parser.add_argument('-mtp', '--minitrain_path', type=str, default='coco_minitrain')
         self.args = parser.parse_args()
         self.args_dict = vars(self.args)
 
-        self.dataset_root_path = '/home/brcao/Repos/datasets/coco_minitrain_8k'
+        self.dataset_root_path = self.args.minitrain_path # edit
         self.img_root_path = self.dataset_root_path + '/images'
         self.label_root_path = self.dataset_root_path + '/labels'
         self.data_types = ['train', 'val']
