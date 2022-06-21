@@ -2,6 +2,8 @@
 Usage:
 python3 step0_cvt_scale_coco_bbox.py -drp /home/brcao/Repos/datasets/coco
 python3 step0_cvt_scale_coco_bbox.py -drp /home/brcao/Repos/datasets/coco_minitrain_8k
+python3 step0_cvt_scale_coco_bbox.py -dtp /home/brcao/Data/datasets/coco_minitrain_8k
+python3 step0_cvt_scale_coco_bbox.py -drp /home/brcao/Data/datasets/coco_datasets/coco_minitrain_8k
 '''
 
 import os

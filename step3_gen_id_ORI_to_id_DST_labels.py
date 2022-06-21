@@ -2,6 +2,8 @@
 Usage:
 python3 step3_gen_id_ORI_to_id_DST_labels.py -drp /home/brcao/Repos/datasets/coco
 python3 step3_gen_id_ORI_to_id_DST_labels.py -drp /home/brcao/Repos/datasets/coco_minitrain_8k
+python3 step3_gen_id_ORI_to_id_DST_labels.py -dtp /home/brcao/Data/datasets/coco_minitrain_8k
+python3 step3_gen_id_ORI_to_id_DST_labels.py -drp /home/brcao/Data/datasets/coco_datasets/coco_minitrain_8k
 '''
 
 import os

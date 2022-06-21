@@ -2,6 +2,8 @@
 Usage:
 python3 step2_gen_var_cls_ls.py -drp /home/brcao/Repos/datasets/coco
 python3 step2_gen_var_cls_ls.py -drp /home/brcao/Repos/datasets/coco_minitrain_8k
+python3 step2_gen_var_cls_ls.py -dtp /home/brcao/Data/datasets/coco_minitrain_8k
+python3 step2_gen_var_cls_ls.py -drp /home/brcao/Data/datasets/coco_datasets/coco_minitrain_8k
 '''
 
 import os

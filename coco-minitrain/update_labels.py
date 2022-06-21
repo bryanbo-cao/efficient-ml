@@ -1,6 +1,8 @@
 '''
 Usage:
 python3 update_labels.py -mtp /home/brcao/Repos/datasets/coco_minitrain_8k
+python3 update_labels.py -mtp /home/brcao/Data/datasets/coco_minitrain_8k
+python3 update_labels.py -drp /home/brcao/Data/datasets/coco_datasets/coco_minitrain_8k
 '''
 
 import os
