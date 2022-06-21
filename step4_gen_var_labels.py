@@ -1,3 +1,9 @@
+'''
+Usage:
+python3 step4_gen_var_labels.py -drp /home/brcao/Repos/datasets/coco
+python3 step4_gen_var_labels.py -drp /home/brcao/Repos/datasets/coco_minitrain_8k
+'''
+
 import os
 import cv2
 import glob
@@ -28,13 +34,14 @@ class Config:
         #  Paramaters of experiment
         # --------------------------
         parser = argparse.ArgumentParser()
+        parser.add_argument('-drp', '--dataset_root_path', type=str, default='coco') # root path of the dataset
         parser.add_argument('-b', '--draw_bbox', type=bool, default=False)
         parser.add_argument('-v', '--visualize_bbox', type=bool, default=False)
         # parser.add_argument('-s', '--scale', type=int, default=2)
         self.args = parser.parse_args()
         self.args_dict = vars(self.args)
 
-        self.dataset_root_path = '/home/brcao/Repos/datasets/coco'
+        self.dataset_root_path = self.args.dataset_root_path
         self.img_root_path = self.dataset_root_path + '/images'
         self.label_root_path = self.dataset_root_path + '/labels'
         self.data_types = ['train', 'val']
