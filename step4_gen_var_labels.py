@@ -2,6 +2,8 @@
 Usage:
 python3 step4_gen_var_labels.py -drp /home/brcao/Repos/datasets/coco
 python3 step4_gen_var_labels.py -drp /home/brcao/Repos/datasets/coco_minitrain_8k
+python3 step4_gen_var_labels.py -drp /home/brcao/Data/datasets/coco_minitrain_8k
+python3 step4_gen_var_labels.py -drp /home/brcao/Data/datasets/coco_datasets/coco_minitrain_8k
 '''
 
 import os
@@ -100,10 +102,14 @@ if __name__ == '__main__':
 
     with open(C.cls_ls_path) as f:
         lines = f.readlines()
+        # ------------------------------------------
+        #  Iterate Through n_cls lists from 1 to 80
+        # ------------------------------------------
         for line_i, line in enumerate(lines):
             cls_ls = line[1:-2].replace(',', '').split(' ')
             n_cls = len(cls_ls)
-            print('\n\n cls_ls: ', cls_ls, ', n_cls: ', n_cls)
+            print('\n===============================================')
+            print('\n\n line_i: ', line_i, ', cls_ls: ', cls_ls, ', n_cls: ', n_cls)
 
             if n_cls < 6 or n_cls % 10 == 0:
                 n_cls_path = C.dataset_root_path + '/labels_n_cls_{}'.format(n_cls)
@@ -115,7 +121,9 @@ if __name__ == '__main__':
                     # labels_*
                     label_folder_DST = n_cls_path + '/{}2017'.format(data_type)
                     print('\n\n label_folder_DST: ', label_folder_DST)
-                    if not os.path.exists(label_folder_DST): os.makedirs(label_folder_DST)
+                    if os.path.exists(label_folder_DST):
+                        cmd = 'rm -r {}'.format(label_folder_DST); os.system(cmd); print(cmd)
+                    os.makedirs(label_folder_DST)
 
                     # *.txt
                     label_txt_DST = C.dataset_root_path + '/{}2017_n_cls_{}.txt'.format(data_type, n_cls)
@@ -130,28 +138,44 @@ if __name__ == '__main__':
                     print(copy_cmd)
                     os.system(copy_cmd)
 
+                    # ------------------------------------------
+                    #  Iterate Through each img label text file
+                    # ------------------------------------------
+                    print('\n-----------------------------------------------')
                     for label_path_ORI in glob.glob(label_folder_ORI + '/*.txt'):
                         img_id = label_path_ORI[label_path_ORI.rindex('/') + 1:label_path_ORI.index('.txt')]
-                        # print('\n\n img_id: ', img_id)
+                        print('\n\n img_id: ', img_id)
 
                         # labels_*
                         label_path_ORI_f = open(label_path_ORI, 'r')
                         label_path_ORI_lines = label_path_ORI_f.readlines()
+                        # ------------------------------------------
+                        #  Iterate Through each label within an img
+                        # ------------------------------------------
                         for label_path_ORI_line_i, label_path_ORI_line in enumerate(label_path_ORI_lines):
-                            # print('label_path_ORI_line: ', label_path_ORI_line)
-                            cat_id_ORI = label_path_ORI_line[0]
-                            # print('cat_id: ', cat_id)
+                            print('label_path_ORI_line: ', label_path_ORI_line)
+                            cat_id_ORI = label_path_ORI_line.split(' ')[0]
+                            print('n_cls: ', n_cls, ', cat_id_ORI: ', cat_id_ORI)
 
                             if cat_id_ORI in cls_ls:
                                 label_path_DST = label_folder_DST + '/' + img_id + '.txt'
-                                # print('\n\n label_path_DST: ', label_path_DST)
-                                label_path_DST_f = open(label_path_DST, 'w')
+                                print('\n\n label_path_DST: ', label_path_DST)
+
+                                if not os.path.exists(label_path_DST):
+                                    label_path_DST_f = open(label_path_DST, 'w')
 
                                 cat_id_DST = C.id_ORI_to_id_DST_labels_dict[cat_id_ORI][0]
-                                # print('cat_id_DST: ', cat_id_DST)
-                                label_path_DST_line = label_path_ORI_line.replace(cat_id_ORI, cat_id_DST)
-                                # print('label_path_DST_line: ', label_path_DST_line)
+                                print('n_cls: ', n_cls, ', cat_id_DST: ', cat_id_DST)
+                                print('label_path_ORI_line: ', label_path_ORI_line)
+                                label_path_DST_line_ls = label_path_ORI_line_ls = label_path_ORI_line.split(' ')
+                                label_path_DST_line_ls[0] = cat_id_DST
+                                label_path_DST_line = ' '.join(label_path_DST_line_ls)
+                                print('label_path_DST_line: ', label_path_DST_line)
                                 label_path_DST_f.write(label_path_DST_line)
+
+                                # DEBUG:
+                                if int(cat_id_DST) > n_cls:
+                                    print('ErrorErrorErrorErrorErrorError')
 
                         # *.txt
                         str_to_write = './images/{}2017/{}.jpg\n'.format(data_type, img_id)
