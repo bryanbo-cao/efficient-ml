@@ -4,3 +4,4 @@ python3 step2_gen_var_cls_ls.py -drp /home/brcao/Data/datasets/coco_datasets/coc
 python3 step3_gen_id_ORI_to_id_DST_labels.py -drp /home/brcao/Data/datasets/coco_datasets/coco_minitrain_8k
 python3 step4_gen_var_labels.py -drp /home/brcao/Data/datasets/coco_datasets/coco_minitrain_8k
 python3 step5_copy_labels.py -drp /home/brcao/Data/datasets/coco_datasets/coco_minitrain_8k
+python3 step6_gen_yamls.py -rp /home/brcao/Repos/yolov5 -drp /home/brcao/Data/datasets/coco_datasets/coco_minitrain_8k
