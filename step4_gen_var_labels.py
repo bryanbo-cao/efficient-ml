@@ -78,12 +78,6 @@ class Config:
         for data_type in self.data_types:
             self.label_folder_dict[data_type] = self.label_root_path + '/{}2017'.format(data_type)
 
-        self.cat_label_path = self.dataset_root_path + '/coco-labels-2014_2017.txt'
-        self.cat_id_to_name_dict = defaultdict()
-
-        self.cat_id_label_path = self.dataset_root_path + '/coco-id-labels-2014_2017.txt'
-        self.cat_id_to_name_dict = defaultdict()
-
         self.cls_ls_path = self.dataset_root_path + '/cls_ls.txt'
 
         self.id_ORI_to_id_DST_labels_dict_path = self.dataset_root_path + '/id_ORI_to_id_DST_labels.json'

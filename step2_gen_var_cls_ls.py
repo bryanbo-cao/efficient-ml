@@ -65,14 +65,15 @@ class Config:
             self.label_folder_dict[data_type] = self.label_root_path + '/{}2017'.format(data_type)
 
         self.cat_label_path = self.dataset_root_path + '/coco-labels-2014_2017.txt'
-        self.cat_id_to_name_dict = defaultdict()
-
         self.cat_id_label_path = self.dataset_root_path + '/coco-id-labels-2014_2017.txt'
-        self.cat_id_to_name_dict = defaultdict()
 
         self.cls_ls_path = self.dataset_root_path + '/cls_ls.txt'
         self.cls_ls = []
         self.cls_ls_f = open(self.cls_ls_path, 'w')
+
+        self.cls_name_ls_path = self.dataset_root_path + '/cls_name_ls.txt'
+        self.cls_name_ls = []
+        self.cls_name_ls_f = open(self.cls_name_ls_path, 'w')
 
 if __name__ == '__main__':
     C = Config()
@@ -83,6 +84,13 @@ if __name__ == '__main__':
     C.cls_ls.append([0, 1, 2, 15]) # ['person', 'bicycle', 'car', 'cat']
     C.cls_ls.append([0, 1, 2, 15, 22]) # ['person', 'bicycle', 'car', 'cat', 'zebra']
     visited = copy.deepcopy(C.cls_ls[-1])
+
+    C.cls_name_ls.append(['person'])
+    C.cls_name_ls.append(['person', 'bicycle'])
+    C.cls_name_ls.append(['person', 'bicycle', 'car'])
+    C.cls_name_ls.append(['person', 'bicycle', 'car', 'cat'])
+    C.cls_name_ls.append(['person', 'bicycle', 'car', 'cat', 'zebra'])
+    visited_names = copy.deepcopy(C.cls_name_ls[-1])
 
     for n_cls in range(1, 6):
         n_cls_path = C.dataset_root_path + '/labels_n_cls_{}'.format(n_cls)
@@ -99,28 +107,28 @@ if __name__ == '__main__':
         # if n_cls < 5: or n_cls % 10 == 0:
         if True:
             if n_cls < 5:
-                new_cls_ls = C.cls_ls[n_cls]
+                new_cls_ls = C.cls_ls[n_cls]; new_cls_name_ls = C.cls_name_ls[n_cls]
             else:
                 print('\n ==============================')
                 print('\n C.cls_ls: ', C.cls_ls)
                 print('\n n_cls: ', n_cls)
                 with open(C.cat_label_path) as f:
                     lines = f.readlines()
-                    new_cls_ls = copy.deepcopy(C.cls_ls[-1])
-                    cls_added = len(new_cls_ls)
+                    new_cls_ls = copy.deepcopy(C.cls_ls[-1]); new_cls_name_ls = copy.deepcopy(C.cls_name_ls[-1])
+                    cls_added = len(new_cls_ls); cls_name_added = len(new_cls_name_ls)
                     for line_i, line in enumerate(lines):
                         if line_i not in visited:
-                            new_cls_ls.append(line_i)
+                            new_cls_ls.append(line_i); new_cls_name_ls.append(line[:-1])
                             visited.append(line_i)
                             cls_added += 1
                             if cls_added >= n_cls:
                                 break
 
-                    C.cls_ls.append(new_cls_ls)
-            line_to_write = str(new_cls_ls) + '\n'
-            print('\n\n line_to_write: ', line_to_write)
-            print('\n len(new_cls_ls): ', len(new_cls_ls))
-            C.cls_ls_f.write(line_to_write)
+                    C.cls_ls.append(new_cls_ls); C.cls_name_ls.append(new_cls_name_ls)
+            line_to_write = str(new_cls_ls) + '\n'; line_name_to_write = str(new_cls_name_ls) + '\n'
+            print('\n\n line_to_write: ', line_to_write); print('\n\n line_name_to_write: ', line_name_to_write)
+            print('\n len(new_cls_ls): ', len(new_cls_ls)); print('\n len(new_cls_name_ls): ', len(new_cls_name_ls))
+            C.cls_ls_f.write(line_to_write); C.cls_name_ls_f.write(line_name_to_write)
 
 '''
 

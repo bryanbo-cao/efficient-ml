@@ -146,18 +146,17 @@ if __name__ == '__main__':
             # Draw bbox <<<
 
             # vis >>>
-            if C.args.visualize_bbox:
-                cv2.imshow('img', img); cv2.waitKey(0)
+            if C.args.visualize_bbox: cv2.imshow('img', img); cv2.waitKey(0)
 
             # Save images with different scales
             for i, scale_str in enumerate(C.scale_str_ls):
 
                 dim_resized = (int(c * C.scale_ls[i]), int(r * C.scale_ls[i])) # (width, height)
                 img_resized = cv2.resize(img, dim_resized)
-                # cv2.imshow('img_resized', img_resized); cv2.waitKey(0)
+                if C.args.visualize_bbox: cv2.imshow('img_resized', img_resized); cv2.waitKey(0)
 
                 img_res = cv2.resize(img_resized, dim_ORI)
-                # cv2.imshow('img_res', img_res); cv2.waitKey(0)
+                if C.args.visualize_bbox: cv2.imshow('img_res', img_res); cv2.waitKey(0)
 
                 # save
                 img_path_to_save = C.img_folder_dict[scale_str][data_type] + '/' + img_id + '.jpg'
