@@ -110,6 +110,8 @@ if __name__ == '__main__':
                 print(n_cls_path) # e.g. /home/brcao/Repos/datasets/labels/coco_n_cls_1
                 if not os.path.exists(n_cls_path): os.makedirs(n_cls_path)
                 for data_type in C.data_types:
+                    # debug
+                    # if data_type == 'val': continue
                     label_folder_ORI = C.label_folder_dict[data_type]
 
                     # labels_*
@@ -146,6 +148,10 @@ if __name__ == '__main__':
                         # ------------------------------------------
                         #  Iterate Through each label within an img
                         # ------------------------------------------
+                        print('\n -------------------------*.txt-----------------------------')
+                        print('\n label_path_ORI: ', label_path_ORI)
+                        print('\n label_path_ORI_lines: ', label_path_ORI_lines)
+
                         for label_path_ORI_line_i, label_path_ORI_line in enumerate(label_path_ORI_lines):
                             print('label_path_ORI_line: ', label_path_ORI_line)
                             cat_id_ORI = label_path_ORI_line.split(' ')[0]
@@ -155,8 +161,7 @@ if __name__ == '__main__':
                                 label_path_DST = label_folder_DST + '/' + img_id + '.txt'
                                 print('\n\n label_path_DST: ', label_path_DST)
 
-                                if not os.path.exists(label_path_DST):
-                                    label_path_DST_f = open(label_path_DST, 'w')
+                                label_path_DST_f = open(label_path_DST, 'a')
 
                                 cat_id_DST = C.id_ORI_to_id_DST_labels_dict[cat_id_ORI][0]
                                 print('n_cls: ', n_cls, ', cat_id_DST: ', cat_id_DST)
@@ -169,7 +174,7 @@ if __name__ == '__main__':
 
                                 # DEBUG:
                                 if int(cat_id_DST) > n_cls:
-                                    print('ErrorErrorErrorErrorErrorError')
+                                    print('Error')
 
                         # *.txt
                         str_to_write = './images/{}2017/{}.jpg\n'.format(data_type, img_id)
