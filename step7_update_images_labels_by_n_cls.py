@@ -1,9 +1,9 @@
 '''
 Usage:
 python3 step7_update_images_labels_by_n_cls.py -drp /home/brcao/Repos/datasets/coco -s 1o2 -n 2
-python3 step7_update_images_labels_by_n_cls.py -drp /home/brcao/Repos/datasets/coco_minitrain_15k -s 1o2 -n 2
-python3 step7_update_images_labels_by_n_cls.py -drp /home/brcao/Data/datasets/coco_minitrain_15k -s 1o2 -n 2
-python3 step7_update_images_labels_by_n_cls.py -drp /home/brcao/Data/datasets/coco_datasets/coco_minitrain_15k -s 1o2 -n 2
+python3 step7_update_images_labels_by_n_cls.py -drp /home/brcao/Repos/datasets/coco_minitrain_25k -s 1o2 -n 2
+python3 step7_update_images_labels_by_n_cls.py -drp /home/brcao/Data/datasets/coco_minitrain_25k -s 1o2 -n 2
+python3 step7_update_images_labels_by_n_cls.py -drp /home/brcao/Data/datasets/coco_datasets/coco_minitrain_25k -s 1o2 -n 2
 '''
 
 import os
@@ -93,17 +93,17 @@ if __name__ == '__main__':
         '''
         e.g.
         ----------- train ---------
-        img_path:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_15k_1o2/images/train2017
-        labels_path:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_15k_1o2/labels/train2017
-        dataset_root_path:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_15k_1o2
-        img_path_ORI:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_15k/images_ORI/train2017
-        labels_path_ORI:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_15k/labels_n_cls_2/train2017
+        img_path:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_25k_1o2/images/train2017
+        labels_path:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_25k_1o2/labels/train2017
+        dataset_root_path:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_25k_1o2
+        img_path_ORI:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_25k/images_ORI/train2017
+        labels_path_ORI:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_25k/labels_n_cls_2/train2017
         ----------- val ---------
-        img_path:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_15k_1o2/images/val2017
-        labels_path:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_15k_1o2/labels/val2017
-        dataset_root_path:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_15k_1o2
-        img_path_ORI:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_15k/images_ORI/val2017
-        labels_path_ORI:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_15k/labels_n_cls_2/val2017
+        img_path:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_25k_1o2/images/val2017
+        labels_path:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_25k_1o2/labels/val2017
+        dataset_root_path:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_25k_1o2
+        img_path_ORI:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_25k/images_ORI/val2017
+        labels_path_ORI:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_25k/labels_n_cls_2/val2017
         '''
         cmd = 'rm -r {}'.format(img_path); os.system(cmd); print(cmd)
         os.makedirs(img_path)

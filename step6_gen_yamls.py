@@ -1,9 +1,9 @@
 '''
 Usage:
 python3 step6_gen_yamls.py -rp /home/brcao/Repos/yolov5 -drp /home/brcao/Repos/datasets/coco
-python3 step6_gen_yamls.py -rp /home/brcao/Repos/yolov5 -drp /home/brcao/Repos/datasets/coco_minitrain_15k
-python3 step6_gen_yamls.py -rp /home/brcao/Repos/yolov5 -dtp /home/brcao/Data/datasets/coco_minitrain_15k
-python3 step6_gen_yamls.py -rp /home/brcao/Repos/yolov5 -drp /home/brcao/Data/datasets/coco_datasets/coco_minitrain_15k
+python3 step6_gen_yamls.py -rp /home/brcao/Repos/yolov5 -drp /home/brcao/Repos/datasets/coco_minitrain_25k
+python3 step6_gen_yamls.py -rp /home/brcao/Repos/yolov5 -dtp /home/brcao/Data/datasets/coco_minitrain_25k
+python3 step6_gen_yamls.py -rp /home/brcao/Repos/yolov5 -drp /home/brcao/Data/datasets/coco_datasets/coco_minitrain_25k
 '''
 
 import os
