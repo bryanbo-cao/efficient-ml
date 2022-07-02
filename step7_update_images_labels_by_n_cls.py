@@ -1,9 +1,9 @@
 '''
 Usage:
 python3 step7_update_images_labels_by_n_cls.py -drp /home/brcao/Repos/datasets/coco -s 1o2 -n 2
-python3 step7_update_images_labels_by_n_cls.py -drp /home/brcao/Repos/datasets/coco_minitrain_8k -s 1o2 -n 2
-python3 step7_update_images_labels_by_n_cls.py -drp /home/brcao/Data/datasets/coco_minitrain_8k -s 1o2 -n 2
-python3 step7_update_images_labels_by_n_cls.py -drp /home/brcao/Data/datasets/coco_datasets/coco_minitrain_8k -s 1o2 -n 2
+python3 step7_update_images_labels_by_n_cls.py -drp /home/brcao/Repos/datasets/coco_minitrain_15k -s 1o2 -n 2
+python3 step7_update_images_labels_by_n_cls.py -drp /home/brcao/Data/datasets/coco_minitrain_15k -s 1o2 -n 2
+python3 step7_update_images_labels_by_n_cls.py -drp /home/brcao/Data/datasets/coco_datasets/coco_minitrain_15k -s 1o2 -n 2
 '''
 
 import os
@@ -72,7 +72,7 @@ class Config:
 
 if __name__ == '__main__':
     C = Config()
-    
+
     print('C.img_folder_dict.keys(): ', C.img_folder_dict.keys())
     # for scaled_str, img_folder in C.img_folder_dict.items():
     img_folder = C.img_folder_dict[C.args.scale_str]
@@ -89,21 +89,21 @@ if __name__ == '__main__':
         print('\n dataset_root_path: ', dataset_root_path)
         print('\n img_path_ORI: ', img_path_ORI)
         print('\n labels_path_ORI: ', labels_path_ORI)
-        
+
         '''
         e.g.
         ----------- train ---------
-        img_path:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_8k_1o2/images/train2017
-        labels_path:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_8k_1o2/labels/train2017
-        dataset_root_path:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_8k_1o2
-        img_path_ORI:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_8k/images_ORI/train2017
-        labels_path_ORI:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_8k/labels_n_cls_2/train2017
+        img_path:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_15k_1o2/images/train2017
+        labels_path:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_15k_1o2/labels/train2017
+        dataset_root_path:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_15k_1o2
+        img_path_ORI:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_15k/images_ORI/train2017
+        labels_path_ORI:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_15k/labels_n_cls_2/train2017
         ----------- val ---------
-        img_path:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_8k_1o2/images/val2017
-        labels_path:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_8k_1o2/labels/val2017
-        dataset_root_path:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_8k_1o2
-        img_path_ORI:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_8k/images_ORI/val2017
-        labels_path_ORI:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_8k/labels_n_cls_2/val2017
+        img_path:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_15k_1o2/images/val2017
+        labels_path:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_15k_1o2/labels/val2017
+        dataset_root_path:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_15k_1o2
+        img_path_ORI:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_15k/images_ORI/val2017
+        labels_path_ORI:  /home/brcao/Data/datasets/coco_datasets/coco_minitrain_15k/labels_n_cls_2/val2017
         '''
         cmd = 'rm -r {}'.format(img_path); os.system(cmd); print(cmd)
         os.makedirs(img_path)
@@ -117,4 +117,3 @@ if __name__ == '__main__':
 
             img_n_cls_path_ = img_path_ORI + '/' + img_id + '.jpg'
             cmd = 'scp {} {}'.format(img_n_cls_path_, img_path); os.system(cmd); print(cmd)
-

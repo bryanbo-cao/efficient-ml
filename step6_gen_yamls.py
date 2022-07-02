@@ -1,9 +1,9 @@
 '''
 Usage:
 python3 step6_gen_yamls.py -rp /home/brcao/Repos/yolov5 -drp /home/brcao/Repos/datasets/coco
-python3 step6_gen_yamls.py -rp /home/brcao/Repos/yolov5 -drp /home/brcao/Repos/datasets/coco_minitrain_8k
-python3 step6_gen_yamls.py -rp /home/brcao/Repos/yolov5 -dtp /home/brcao/Data/datasets/coco_minitrain_8k
-python3 step6_gen_yamls.py -rp /home/brcao/Repos/yolov5 -drp /home/brcao/Data/datasets/coco_datasets/coco_minitrain_8k
+python3 step6_gen_yamls.py -rp /home/brcao/Repos/yolov5 -drp /home/brcao/Repos/datasets/coco_minitrain_15k
+python3 step6_gen_yamls.py -rp /home/brcao/Repos/yolov5 -dtp /home/brcao/Data/datasets/coco_minitrain_15k
+python3 step6_gen_yamls.py -rp /home/brcao/Repos/yolov5 -drp /home/brcao/Data/datasets/coco_datasets/coco_minitrain_15k
 '''
 
 import os
@@ -79,7 +79,7 @@ class Config:
         self.data_yaml_f = open(self.data_yaml_folder + '/coco.yaml', 'r')
 
         self.model_folder = self.args.repo_root_path + '/models'
-        self.model_f = None # open(self.model_folder + '/yolov5n.yaml', 'r') 
+        self.model_f = None # open(self.model_folder + '/yolov5n.yaml', 'r')
 
         self.model_ls = ['yolov5n', 'yolov5_p1p2p3_4', 'yolov5_p1p2p3p4_4', 'yolov5_p1p2p3p4p5_4']
 
@@ -120,8 +120,8 @@ if __name__ == '__main__':
                     dataset_root_path = C.dataset_root_path + '_' + scale_str
                     new_data_yaml_f = open(C.data_yaml_folder + '/' + C.dataset + '_' + scale_str + '_n_cls_' + str(n_cls) + '.yaml', 'w')
                 print('\n\n dataset_root_path: ', dataset_root_path)
-    
-                C.data_yaml_f = open(C.data_yaml_folder + '/coco.yaml', 'r')        
+
+                C.data_yaml_f = open(C.data_yaml_folder + '/coco.yaml', 'r')
                 lines = C.data_yaml_f.readlines()
                 for line_i, line in enumerate(lines):
                     if line.startswith('path'):
@@ -133,7 +133,7 @@ if __name__ == '__main__':
                     elif '# Download script/URL (optional)' in line:
                         break
                     else:
-                        new_line = line     
+                        new_line = line
                     new_data_yaml_f.write(new_line)
                     print('\n\n ', new_line)
                     if line.startswith('names'): break
