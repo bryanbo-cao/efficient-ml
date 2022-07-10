@@ -3,7 +3,7 @@ Usage:
 python3 step2_gen_var_cls_ls.py -drp /home/brcao/Repos/datasets/coco
 python3 step2_gen_var_cls_ls.py -drp /home/brcao/Repos/datasets/coco_minitrain_25k
 python3 step2_gen_var_cls_ls.py -dtp /home/brcao/Data/datasets/coco_minitrain_25k
-python3 step2_gen_var_cls_ls.py -drp /home/brcao/Data/datasets/coco_datasets_2/coco_minitrain_25k
+python3 step2_gen_var_cls_ls.py -drp /home/brcao/Data/datasets/coco_datasets_v2/coco_minitrain_25k
 '''
 
 import os
