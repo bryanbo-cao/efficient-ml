@@ -3,7 +3,7 @@ Usage:
 python3 step2_gen_var_cls_ls.py -drp /home/brcao/Repos/datasets/coco
 python3 step2_gen_var_cls_ls.py -drp /home/brcao/Repos/datasets/coco_minitrain_25k
 python3 step2_gen_var_cls_ls.py -dtp /home/brcao/Data/datasets/coco_minitrain_25k
-python3 step2_gen_var_cls_ls.py -drp /home/brcao/Data/datasets/coco_datasets/coco_minitrain_25k
+python3 step2_gen_var_cls_ls.py -drp /home/brcao/Data/datasets/coco_datasets_v1/coco_minitrain_25k
 '''
 
 import os
@@ -39,8 +39,8 @@ class Config:
         for data_type in self.data_types:
             self.img_folder_dict['1o1'][data_type] = self.img_root_path + '/{}2017'.format(data_type)
 
-        self.scale_ls = [1/2, 1/4, 1/8, 1/16]
-        self.scale_str_ls = ['1o2', '1o4', '1o8', '1o16']
+        self.scale_ls = [] # [1/2, 1/4, 1/8, 1/16]
+        self.scale_str_ls = [] # ['1o2', '1o4', '1o8', '1o16']
         for i, scale in enumerate(self.scale_ls):
             self.scaled_dataset_root_path = self.dataset_root_path + '_' + self.scale_str_ls[i]
             if not os.path.exists(self.scaled_dataset_root_path): os.makedirs(self.scaled_dataset_root_path)
@@ -78,18 +78,19 @@ class Config:
 if __name__ == '__main__':
     C = Config()
 
+    # [0, 1, 2, 15, 22]: ['person', 'bicycle', 'car', 'cat', 'zebra']
     C.cls_ls.append([0]) # ['person']
-    C.cls_ls.append([0, 1]) # ['person', 'bicycle']
-    C.cls_ls.append([0, 1, 2]) # ['person', 'bicycle', 'car']
-    C.cls_ls.append([0, 1, 2, 15]) # ['person', 'bicycle', 'car', 'cat']
-    C.cls_ls.append([0, 1, 2, 15, 22]) # ['person', 'bicycle', 'car', 'cat', 'zebra']
+    C.cls_ls.append([0, 22]) # ['person', 'zebra']
+    C.cls_ls.append([0, 22, 15]) # ['person', 'zebra', 'cat']
+    C.cls_ls.append([0, 22, 15, 1]) # ['person', 'zebra', 'cat', 'bicycle']
+    C.cls_ls.append([0, 22, 15, 1, 2]) # ['person', 'zebra', 'cat', 'bicycle', 'car']
     visited = copy.deepcopy(C.cls_ls[-1])
 
     C.cls_name_ls.append(['person'])
-    C.cls_name_ls.append(['person', 'bicycle'])
-    C.cls_name_ls.append(['person', 'bicycle', 'car'])
-    C.cls_name_ls.append(['person', 'bicycle', 'car', 'cat'])
-    C.cls_name_ls.append(['person', 'bicycle', 'car', 'cat', 'zebra'])
+    C.cls_name_ls.append(['person', 'zebra'])
+    C.cls_name_ls.append(['person', 'zebra', 'cat'])
+    C.cls_name_ls.append(['person', 'zebra', 'cat', 'bicycle'])
+    C.cls_name_ls.append(['person', 'zebra', 'cat', 'bicycle', 'car'])
     visited_names = copy.deepcopy(C.cls_name_ls[-1])
 
     for n_cls in range(1, 6):

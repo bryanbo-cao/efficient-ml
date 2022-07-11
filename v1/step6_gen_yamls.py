@@ -3,7 +3,7 @@ Usage:
 python3 step6_gen_yamls.py -rp /home/brcao/Repos/yolov5 -drp /home/brcao/Repos/datasets/coco
 python3 step6_gen_yamls.py -rp /home/brcao/Repos/yolov5 -drp /home/brcao/Repos/datasets/coco_minitrain_25k
 python3 step6_gen_yamls.py -rp /home/brcao/Repos/yolov5 -dtp /home/brcao/Data/datasets/coco_minitrain_25k
-python3 step6_gen_yamls.py -rp /home/brcao/Repos/yolov5 -drp /home/brcao/Data/datasets/coco_datasets/coco_minitrain_25k
+python3 step6_gen_yamls.py -rp /home/brcao/Repos/yolov5 -drp /home/brcao/Data/datasets/coco_datasets_v1/coco_minitrain_25k
 '''
 
 import os
@@ -39,8 +39,8 @@ class Config:
         for data_type in self.data_types:
             self.img_folder_dict['1o1'][data_type] = self.img_root_path + '/{}2017'.format(data_type)
 
-        self.scale_ls = [1/2, 1/4, 1/8, 1/16]
-        self.scale_str_ls = ['1o2', '1o4', '1o8', '1o16']
+        self.scale_ls = [] # [1/2, 1/4, 1/8, 1/16]
+        self.scale_str_ls = [] # ['1o2', '1o4', '1o8', '1o16']
         for i, scale in enumerate(self.scale_ls):
             self.scaled_dataset_root_path = self.dataset_root_path + '_' + self.scale_str_ls[i]
             if not os.path.exists(self.scaled_dataset_root_path): os.makedirs(self.scaled_dataset_root_path)
@@ -115,10 +115,12 @@ if __name__ == '__main__':
                 print('\n\n n_cls: ', n_cls, ', name_ls: ', name_ls)
                 if scale_str == '1o1':
                     dataset_root_path = C.dataset_root_path
-                    new_data_yaml_f = open(C.data_yaml_folder + '/' + C.dataset + '_n_cls_' + str(n_cls) + '.yaml', 'w')
+                    # new_data_yaml_f = open(C.data_yaml_folder + '/' + C.dataset + '_n_cls_' + str(n_cls) + '.yaml', 'w')
+                    new_data_yaml_f = open(C.data_yaml_folder + '/' + C.dataset + '_n_cls_' + str(n_cls) + '_v1.yaml', 'w') # edit
                 else:
                     dataset_root_path = C.dataset_root_path + '_' + scale_str
-                    new_data_yaml_f = open(C.data_yaml_folder + '/' + C.dataset + '_' + scale_str + '_n_cls_' + str(n_cls) + '.yaml', 'w')
+                    # new_data_yaml_f = open(C.data_yaml_folder + '/' + C.dataset + '_' + scale_str + '_n_cls_' + str(n_cls) + '.yaml', 'w')
+                    new_data_yaml_f = open(C.data_yaml_folder + '/' + C.dataset + '_' + scale_str + '_n_cls_' + str(n_cls) + '_v1.yaml', 'w')
                 print('\n\n dataset_root_path: ', dataset_root_path)
 
                 C.data_yaml_f = open(C.data_yaml_folder + '/coco.yaml', 'r')
