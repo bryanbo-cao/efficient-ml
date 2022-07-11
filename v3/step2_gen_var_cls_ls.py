@@ -80,17 +80,17 @@ if __name__ == '__main__':
 
     # [0, 1, 2, 15, 22]: ['person', 'bicycle', 'car', 'cat', 'zebra']
     C.cls_ls.append([0]) # ['person']
-    C.cls_ls.append([0, 22]) # ['person', 'zebra']
-    C.cls_ls.append([0, 22, 15]) # ['person', 'zebra', 'cat']
-    C.cls_ls.append([0, 22, 15, 1]) # ['person', 'zebra', 'cat', 'bicycle']
-    C.cls_ls.append([0, 22, 15, 1, 2]) # ['person', 'zebra', 'cat', 'bicycle', 'car']
+    C.cls_ls.append([0, 15]) # ['person', 'cat']
+    C.cls_ls.append([0, 15, 22]) # ['person', 'cat', 'zebra']
+    C.cls_ls.append([0, 15, 22, 1]) # ['person', 'cat', 'zebra', 'bicycle']
+    C.cls_ls.append([0, 15, 22, 1, 2]) # ['person', 'cat', 'zebra', 'bicycle', 'car']
     visited = copy.deepcopy(C.cls_ls[-1])
 
     C.cls_name_ls.append(['person'])
-    C.cls_name_ls.append(['person', 'zebra'])
-    C.cls_name_ls.append(['person', 'zebra', 'cat'])
-    C.cls_name_ls.append(['person', 'zebra', 'cat', 'bicycle'])
-    C.cls_name_ls.append(['person', 'zebra', 'cat', 'bicycle', 'car'])
+    C.cls_name_ls.append(['person', 'cat'])
+    C.cls_name_ls.append(['person', 'cat', 'zebra'])
+    C.cls_name_ls.append(['person', 'cat', 'zebra', 'bicycle'])
+    C.cls_name_ls.append(['person', 'cat', 'zebra', 'bicycle', 'car'])
     visited_names = copy.deepcopy(C.cls_name_ls[-1])
 
     for n_cls in range(1, 6):
