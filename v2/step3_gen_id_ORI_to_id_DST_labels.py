@@ -103,11 +103,11 @@ if __name__ == '__main__':
     print('n_cls_80_ls: ', n_cls_80_ls)
     print('type(n_cls_80_ls): ', type(n_cls_80_ls))
     print('len(n_cls_80_ls): ', len(n_cls_80_ls))
-    for i, n_cls in enumerate(n_cls_80_ls):
-        label = C.cat_id_label_lines[i].split(',')[-1][:-1]
+    for i, id_cls_DST in enumerate(n_cls_80_ls):
+        label = C.cat_id_label_lines[int(id_cls_DST)].split(',')[-1][:-1]
         print('label: ', label)
-        C.id_ORI_to_id_DST_labels_dict[str(n_cls)] = [str(i), label]
-        C.id_DST_to_id_ORI_labels_dict[str(i)] = [str(n_cls), label]
+        C.id_ORI_to_id_DST_labels_dict[id_cls_DST] = [str(i), label]
+        C.id_DST_to_id_ORI_labels_dict[str(i)] = [id_cls_DST, label]
 
     print('C.id_ORI_to_id_DST_labels_dict: ', C.id_ORI_to_id_DST_labels_dict)
     with open(C.id_ORI_to_id_DST_labels_dict_path, 'w') as f:
