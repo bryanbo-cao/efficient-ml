@@ -110,7 +110,7 @@ if __name__ == '__main__':
         # Each Image
         for img_path in glob.glob(C.img_folder_dict['1o1'][data_type] + '/*.jpg'):
             img_id = img_path[img_path.rindex('/'):img_path.index('.jpg')]
-            print(img_path)
+            # print(img_path)
 
             img = cv2.imread(img_path)
             r, c = img.shape[0], img.shape[1]
